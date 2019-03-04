@@ -57,6 +57,7 @@ while True:
     a=a+1
     check,frame = video.read()
     small = cv2.resize(frame, (0,0),fx=0.5,fy=0.5)
+    
    # rotated = imutils.rotate_bound(small,90)
     #print(check)
     #print(frame)
@@ -64,7 +65,7 @@ while True:
     faces = face_cascade.detectMultiScale(grey_vid, scaleFactor=1.05, minNeighbors=5)
     for x,y,w,h in faces:
         #print(x,y,w,h)
-        rotated = cv2.rectangle(small,(x,y),(x+w,y+h),(0,255,0),2)
+        small = cv2.rectangle(small,(x,y),(x+w,y+h),(0,255,0),2)
         roi_gray = grey_vid[y:y+h, x:x+w]
         roi_color = rotated[y:y+h, x:x+w]
         eyes = eye_cascade.detectMultiScale(roi_gray,scaleFactor=1.05, minNeighbors=5)
