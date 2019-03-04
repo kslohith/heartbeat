@@ -5,6 +5,13 @@ Created on Mon Mar  4 14:23:56 2019
 @author: Admin
 """
 
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Mar  4 14:23:56 2019
+
+@author: Admin
+"""
+
 import cv2
 import imutils
 
@@ -40,7 +47,18 @@ def detect(gray, frame):
     # Now draw rectangle over the eyes
     for (ex, ey, ew, eh) in eyes:
       cv2.rectangle(roi_color, (ex,ey), (ex+ew, ey+eh), (0, 255, 0), 2)
-      
+      hx=ex
+      hy=ey-30
+      hw=ex+ew
+      hh=ey+eh-30
+        #cv2.rectangle(roi_color,(ex,ey-30),(ex+ew,ey+eh-30),(0,0,255),2)
+    try:
+        cv2.rectangle(roi_color,(hx-15,hy-20),((2*hw)+45,hh-30),(0,0,255),2)
+        roi = roi_color[hy-20:hh-30,hx-15:(2*hw)+45]
+        cv2.imshow("roi",roi)
+        #return roi
+    except UnboundLocalError:
+        pass
   return frame
     
 # Capture video from webcam 
