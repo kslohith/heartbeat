@@ -1,4 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Mar  4 14:23:56 2019
+
+@author: Admin
+"""
+
 import cv2
+import imutils
 
 # Load the Haar cascades
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
@@ -36,11 +44,15 @@ def detect(gray, frame):
   return frame
     
 # Capture video from webcam 
-video_capture = cv2.VideoCapture(0)
+video_capture = cv2.VideoCapture("newdata.mp4")
 # Run the infinite loop
 while True:
   # Read each frame
   _, frame = video_capture.read()
+  print(frame.shape)
+  
+  frame = cv2.resize(frame,(int(frame.shape[1]/2),int(frame.shape[0]/2)))
+  frame = imutils.rotate_bound(frame,90)
   # Convert frame to grey because cascading only works with greyscale image
   gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
   # Call the detect function with grey image and colored frame
