@@ -1,0 +1,111 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Mar  4 16:45:39 2019
+
+@author: Admin
+"""
+
+#import scipy
+#import numpy as np
+#from scipy.fftpack import fft
+## Number of samplepoints
+#N = 600
+## sample spacing
+#T = 1.0 / 800.0
+#x = np.linspace(0.0, N*T, N)
+#y = np.sin(50.0 * 2.0*np.pi*x) + 0.5*np.sin(80.0 * 2.0*np.pi*x)
+#yf = fft(y)
+#xf = np.linspace(0.0, 1.0/(2.0*T), N/2)
+#xint = xf.astype(int)
+#yint = yf.astype(int)
+#import matplotlib.pyplot as plt
+#plt.plot(xint, 2.0/N * np.abs(yint[0:N/2]))
+#plt.grid()
+#plt.show()
+
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Dec 28 21:56:17 2018
+
+@author: Dell
+"""
+
+import cv2
+from scipy import signal
+from scipy.fftpack import fft
+import numpy as np
+from scipy.fftpack import fftfreq
+""" i got the hue values from the previous program but i dont know how to automatically plot so copied those values here"""
+
+hue = [
+22.52962962962963,
+21.22222222222222,
+24.385327635327634,
+24.136410256410258,
+25.42361111111111,
+22.869281045751634,
+25.147967479674797,
+25.495644599303137,
+24.8019578313253,
+26.09659090909091,
+23.37670068027211,
+24.87421383647799,
+22.68370786516854,
+24.468194474191474,
+22.56838235294118,
+23.389529724933453,
+24.486309523809524,
+24.79038961038961,
+24.545546764049504,
+25.16507177033493,
+22.18855534709193,
+28.939786585365855,
+22.181818181818183,
+25.678130511463845,
+24.180357142857144,
+24.222093023255812,
+24.280968858131487,
+27.443775100401606,
+29.7223113964687,
+20.50287356321839,
+24.014957264957264,
+22.43658536585366,
+25.397222222222222]
+
+from matplotlib import pyplot as plt
+import math
+
+hue.append(0)
+y = fft(hue)
+dhue = signal.detrend(hue)
+yd = fft(dhue)
+
+N = 20
+# sample spacing
+T = 1.0 / 100.0
+x = np.linspace(0.0, N*T, N)
+y = np.array(hue)
+yf = fft(y)
+realyf = yf.real
+xf = np.linspace(0.0, 1.0/(2.0*T), N/2)
+xint = list(xf)
+#for i in xint:
+#    i = math.ceil(i)
+fig, ax = plt.subplots()
+ax.plot(xf*10, np.abs(yd[:N//2])+30)
+#ax.plot(xf, 2.0/N * np.abs(yd[:N//2]))
+plt.show()
+
+
+
+#plt.figure(figsize=(5, 4))
+#plt.plot( hue, label="x")
+#plt.plot( dhue, label="x_detrended")
+#plt.legend(loc='best')
+#plt.show()
+
+#plt.plot(xf, 2.0/N * np.abs(realyf[0:N/2]))
+#plt.grid()
+#plt.show()
+
+
